@@ -1,0 +1,4 @@
+flask
+flask_restful
+google-cloud-datastore
+google-cloud-storage
