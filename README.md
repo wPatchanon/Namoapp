@@ -20,6 +20,9 @@ pip install -r requirements.txt
 python src/server.py
 ```
 5. Use **ngrok** to get public IP
+```
+./ngrok http 5000
+```
 6. Tell Dialogflow fulfillment to use this address `{HTTPS address from ngrok}/query` e.g. `https://f4ed3e88.ngrok.io/query`
 
 
@@ -36,4 +39,7 @@ docker build --tag namoapp:latest .
 docker run -d -p 5000:5000 namoapp:latest
 ```
 5. Use **ngrok** to get public IP
+```
+./ngrok http 5000
+```
 6. Tell Dialogflow fulfillment to use this address `{HTTPS address from ngrok}/query` e.g. `https://f4ed3e88.ngrok.io/query`
