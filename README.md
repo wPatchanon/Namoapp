@@ -33,7 +33,7 @@ docker build --tag namoapp:latest .
 ```
 4. Run docker image
 ```
-docker run [-d] -p 5000:5000 namoapp:latest
+docker run -d -p 5000:5000 namoapp:latest
 ```
 5. Use **ngrok** to get public IP
 6. Tell Dialogflow fulfillment to use this address `{HTTPS address from ngrok}/query` e.g. `https://f4ed3e88.ngrok.io/query`
