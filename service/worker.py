@@ -1,5 +1,6 @@
 import service.GC_Client as gc
 import random
+from service.line_messager import  all_prayer_msg
 
 
 def requestPrayerByName(req):
@@ -33,3 +34,11 @@ def requestPrayerByName(req):
     }
 
     return res
+
+def requestAllPrayer(req):
+    prayers = gc.get_all_prayer()
+    res = all_prayer_msg.gen_message(prayers)
+
+    return res
+
+# print(requestAllPrayer(""))

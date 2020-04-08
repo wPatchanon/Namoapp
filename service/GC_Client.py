@@ -2,7 +2,7 @@ import os
 from google.cloud import datastore
 from google.cloud import storage
 
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'etc/dbauthen.json'
 
 datastore_client = datastore.Client()
 storage_client = storage.Client()
@@ -31,5 +31,10 @@ def get_prayer_image_url(prayer_name):
         return None
     return blob.public_url
 
+def get_all_prayer():
+    query = datastore_client.query(kind='Prayer')
+    results = list(query.fetch())
+    return results
 
 # print(get_prayer_image_url('มหาเศรษฐี'))
+# print(get_all_prayer()[0]['name'])
