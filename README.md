@@ -11,7 +11,7 @@
     - *dbauthen.json*
     
 ## Run in Gcloud App Engine
-1. Download google sdk
+1. Download google cloud sdk
 2. Run 
 ```
 gcloud init
