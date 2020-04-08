@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from worker import requestPrayerByName
+from service.worker import requestPrayerByName
 
 app = Flask(__name__)
 api = Api(app)
@@ -26,8 +26,8 @@ api.add_resource(HelloWorld, '/')
 api.add_resource(Query, '/query')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')  # !!! Debug mode
-    # app.run(host='0.0.0.0')
+    # app.run(debug=True, host='0.0.0.0')  # !!! Debug mode
+    app.run(debug=False, host='0.0.0.0')
 
 
 """ DIALOGFLOW REQUEST

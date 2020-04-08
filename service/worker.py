@@ -1,4 +1,4 @@
-import GC_Client as gc
+import service.GC_Client as gc
 import random
 
 

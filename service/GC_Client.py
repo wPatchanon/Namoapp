@@ -2,7 +2,7 @@ import os
 from google.cloud import datastore
 from google.cloud import storage
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json'
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json'
 
 datastore_client = datastore.Client()
 storage_client = storage.Client()
