@@ -44,7 +44,6 @@ prayer_box = {
         {
             "type": "box",
             "layout": "vertical",
-            "flex": 5,
             "contents": [
                 {
                     "type": "text",
@@ -59,7 +58,6 @@ prayer_box = {
         },
         {
             "type": "button",
-            "flex": 3,
             "height": "sm",
             "gravity": "center",
             "style": "secondary",
@@ -85,24 +83,24 @@ def gen_message(prayer_list):
         num_carousel = math.ceil(len(prayer_list) / 5)
         for i in range(1, num_carousel):
             this_bubble = bubble.copy()
-            for j in range((i-1)*5,i*5):
+            for j in range((i-1)*5, i*5):
                 this_prayer_box = prayer_box.copy()
                 this_prayer_box["contents"][0]["contents"][0]["text"] = prayer_list[j]["name"]
-                this_prayer_box["contents"][1]["action"]["text"] =  "ขอบท" + prayer_list[j]["name"]
-                this_bubble["body"]["contents"][1]["contents"].append(prayer_box)
+                this_prayer_box["contents"][1]["action"]["text"] = "ขอบท" + \
+                    prayer_list[j]["name"]
+                this_bubble["body"]["contents"][1]["contents"].append(
+                    prayer_box)
             res['contents'].append(this_bubble)
         # last carousel = the rest
         this_bubble = bubble.copy()
-        for j in range((num_carousel-1)*5,len(prayer_list)):
+        for j in range((num_carousel-1)*5, len(prayer_list)):
             this_prayer_box = prayer_box.copy()
             this_prayer_box["contents"][0]["contents"][0]["text"] = prayer_list[j]["name"]
-            this_prayer_box["contents"][1]["action"]["text"] =  "ขอบท" + prayer_list[j]["name"]
+            this_prayer_box["contents"][1]["action"]["text"] = "ขอบท" + \
+                prayer_list[j]["name"]
             this_bubble["body"]["contents"][1]["contents"].append(prayer_box)
         res['contents'].append(this_bubble)
 
         # with open('test.json', 'w') as fp:
         #     json.dump(res, fp)
-        # return res
-
-
-
+        return res

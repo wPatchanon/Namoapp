@@ -18,7 +18,7 @@ class Query(Resource):
         print(intent_type)
         if intent_type == 'ขอบทสวดมนต์' or intent_type == 'prayer - name - getname':
             return requestPrayerByName(req_body)
-        if intent_type == 'prayer - list':
+        if intent_type == 'prayer - all':
             return requestAllPrayer(req_body)
 
         return req_body
@@ -28,8 +28,8 @@ api.add_resource(HelloWorld, '/')
 api.add_resource(Query, '/query')
 
 if __name__ == '__main__':
-    # app.run(debug=True, host='0.0.0.0')  # !!! Debug mode
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')  # !!! Debug mode
+    # app.run(debug=False, host='0.0.0.0')
 
 
 """ DIALOGFLOW REQUEST

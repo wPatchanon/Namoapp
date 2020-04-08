@@ -1,6 +1,6 @@
 import service.GC_Client as gc
 import random
-from service.line_messager import  all_prayer_msg
+from service.line_messager import all_prayer_msg
 
 
 def requestPrayerByName(req):
@@ -35,10 +35,25 @@ def requestPrayerByName(req):
 
     return res
 
-def requestAllPrayer(req):
-    prayers = gc.get_all_prayer()
-    res = all_prayer_msg.gen_message(prayers)
 
+def requestAllPrayer(req):
+    print('Fetching')
+    prayers = gc.get_all_prayer()
+    print("Finish")
+    body = all_prayer_msg.gen_message(prayers)
+    res = {
+        "fulfillmentMessages": [{
+            "payload": {
+                "line":
+                {
+                    "type": "flex",
+                    "altText": "this is a flex message",
+                    "contents": body,
+                }
+            }
+        }
+        ]
+    }
     return res
 
 # print(requestAllPrayer(""))
