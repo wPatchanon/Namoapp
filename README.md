@@ -1,23 +1,25 @@
 #### File Structure:
-  - src
-    - server.py
+  - main.py
+  - service
     - GC_client.py
     - worker.py
-  - Dockerfile
+  - app.yaml (for App Engine)
+  - .gcloudignore (for App Engine)
+  - Dockerfile (for Docker)
   - requirements.txt
   - *etc* (Not in this repo)
     - *dbauthen.json*
     
 ## Run in local
 1. Clone this repo
-2. Create **"etc"** folder contains **"dbauthen.json"**
+2. Create **"etc"** folder contains **"dbauthen.json"**, uncomment `os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json` in **"service/GC_client.py"**
 3. Install packages by 
 ```
 pip install -r requirements.txt
 ```
 4. Start server by 
 ```
-python src/server.py
+python main.py
 ```
 5. Use **ngrok** to get public IP
 ```
@@ -29,7 +31,7 @@ python src/server.py
 
 ## Run in local with Docker
 1. Clone this repo
-2. Create **"etc"** folder contains **"dbauthen.json"**
+2. Create **"etc"** folder contains **"dbauthen.json"**, uncomment `os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json` in **"service/GC_client.py"**
 3. Build docker image
 ```
 docker build --tag namoapp:latest .
