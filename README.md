@@ -10,6 +10,20 @@
   - *etc* (Not in this repo)
     - *dbauthen.json*
     
+## Run in Gcloud App Engine
+1. Download google sdk
+2. Run 
+```
+gcloud init
+```
+login and select project "Namo-CloudProject"
+
+3. Clone this repo
+4. Deploy
+```
+gcloud app deploy
+```
+    
 ## Run in local
 1. Clone this repo
 2. Create **"etc"** folder contains **"dbauthen.json"**
