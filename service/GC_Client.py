@@ -39,5 +39,17 @@ def get_all_prayer():
     results = list(query.fetch())
     return results
 
+def get_prayers_by_tag(tag):
+    query = datastore_client.query(kind='Prayer')
+    query.add_filter('tags', '=', tag)
+    results = list(query.fetch())
+
+    prayers=[]
+    for res in results:
+        blob = bucket.get_blob(res["image_object"])
+        prayers.append({"name": res["name"], "image_url": blob.public_url})
+    return prayers
+
+# print(get_prayers_by_tag("สุข"))
 # print(get_prayer_image_url('มหาเศรษฐี'))
 # print(get_all_prayer()[0]['name'])
