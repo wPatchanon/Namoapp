@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from service.worker import requestPrayerByName, requestAllPrayer
+from service.worker import requestPrayerByName, requestAllPrayer, requestMindNews
 
 app = Flask(__name__)
 api = Api(app)
@@ -20,6 +20,8 @@ class Query(Resource):
             return requestPrayerByName(req_body)
         if intent_type == 'prayer - all':
             return requestAllPrayer(req_body)
+        if intent_type == 'news - mind':
+            return requestMindNews(req_body)
 
         return req_body
 

@@ -1,6 +1,7 @@
 import service.GC_Client as gc
+import service.news_fetcher as nf
 import random
-from service.line_messager import all_prayer_msg
+from service.line_messager import all_prayer_msg, news_msg
 
 
 def requestPrayerByName(req):
@@ -55,5 +56,23 @@ def requestAllPrayer(req):
         ]
     }
     return res
+
+def requestMindNews(req):
+    print('Fetching')
+    news_list = nf.get_mind_news()
+    print("Finish")
+    body = news_msg.gen_mind_message(news_list)
+    res = {
+        "fulfillmentMessages": [{
+            "payload": {
+                "line": body
+            }
+        }
+        ]
+    }
+    return res
+
+    
+
 
 # print(requestAllPrayer(""))
