@@ -2,7 +2,7 @@ import os
 from google.cloud import datastore
 from google.cloud import storage
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json'
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json'
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(
 #     os.path.dirname(os.path.realpath(__file__)), 'etc', 'dbauthen.json')
 
@@ -16,14 +16,15 @@ kind = 'Prayer'
 bucket_name = "namo-chatbot"
 bucket = storage_client.get_bucket(bucket_name)
 
+
 def get_prayer_image_url(prayer_name):
     query = datastore_client.query(kind='Prayer')
     query.add_filter('name', '=', prayer_name)
     results = list(query.fetch())
     if len(results) == 0:
         return []
-    
-    image_urls=[]
+
+    image_urls = []
     if type(results[0]["image_object"]) == list:
         for image_object in results[0]["image_object"]:
             blob = bucket.get_blob(image_object)

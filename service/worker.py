@@ -16,21 +16,24 @@ def requestPrayerByName(req):
     print("Finding...")
     url_res = gc.get_prayer_image_url(prayerName)
     print("FINISH!!!")
-    IMG_URL = "https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg"  # Default img
-    if url_res != None:
+    # Default img
+    IMG_URL = [
+        "https://storage.googleapis.com/namo-chatbot/not-found-image-15383864787lu.jpg"]
+    if len(url_res):
         IMG_URL = url_res
-
-    res = {
-        "fulfillmentMessages": [text_response, {
+    payload = []
+    for url in IMG_URL:
+        payload.append({
             "payload": {
                 "line": {
                     "type": "image",
-                    "originalContentUrl": IMG_URL,
-                    "previewImageUrl": IMG_URL
+                    "originalContentUrl": url,
+                    "previewImageUrl": url
                 }
             }
-        }
-        ]
+        })
+    res = {
+        "fulfillmentMessages": [text_response]+payload
     }
 
     return res
