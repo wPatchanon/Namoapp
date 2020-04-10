@@ -2,7 +2,7 @@ import os
 from google.cloud import datastore
 from google.cloud import storage
 
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'./etc/dbauthen.json'
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(
 #     os.path.dirname(os.path.realpath(__file__)), 'etc', 'dbauthen.json')
 
@@ -39,12 +39,13 @@ def get_all_prayer():
     results = list(query.fetch())
     return results
 
+
 def get_prayers_by_tag(tag):
     query = datastore_client.query(kind='Prayer')
     query.add_filter('tags', '=', tag)
     results = list(query.fetch())
 
-    prayers=[]
+    prayers = []
     for res in results:
         blob = bucket.get_blob(res["image_object"])
         prayers.append({"name": res["name"], "image_url": blob.public_url})
