@@ -59,4 +59,26 @@ def requestAllPrayer(req):
     }
     return res
 
+
+def requestTagPrayer(req):
+    prayerTag = req["queryResult"]["parameters"]["prayer_benefit"]
+    print('Fetching')
+    prayers = gc.get_prayers_by_tag(prayerTag)
+    print("Finish")
+    body = all_prayer_msg.gen_message(prayers, prayerTag)
+    res = {
+        "fulfillmentMessages": [{
+            "payload": {
+                "line":
+                {
+                    "type": "flex",
+                    "altText": "this is a flex message",
+                    "contents": body,
+                }
+            }
+        }
+        ]
+    }
+    return res
+
 # print(requestAllPrayer(""))

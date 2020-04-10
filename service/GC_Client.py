@@ -49,11 +49,11 @@ def get_prayers_by_tag(tag):
     query.add_filter('tags', '=', tag)
     results = list(query.fetch())
 
-    prayers = []
-    for res in results:
-        blob = bucket.get_blob(res["image_object"])
-        prayers.append({"name": res["name"], "image_url": blob.public_url})
-    return prayers
+    # prayers = []
+    # for res in results:
+    #     blob = bucket.get_blob(res["image_object"])
+    #     prayers.append({"name": res["name"], "image_url": blob.public_url})
+    return results
 
 # print(get_prayers_by_tag("สุข"))
 # print(get_prayer_image_url("test"))

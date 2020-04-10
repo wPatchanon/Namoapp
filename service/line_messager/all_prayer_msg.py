@@ -74,8 +74,9 @@ prayer_box = {
 }
 
 
-def gen_message(prayer_list):
+def gen_message(prayer_list, topic_name='บทสวด'):
     res = copy.deepcopy(carousel)
+    bubble["body"]["contents"][0]["text"] = topic_name
     if len(prayer_list) == 0:
         res['contents'].append(copy.deepcopy(bubble))
         return res

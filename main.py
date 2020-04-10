@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from service.worker import requestPrayerByName, requestAllPrayer
+from service.worker import requestPrayerByName, requestAllPrayer, requestTagPrayer
 
 app = Flask(__name__)
 api = Api(app)
@@ -18,8 +18,10 @@ class Query(Resource):
         print(intent_type)
         if intent_type == 'ขอบทสวดมนต์' or intent_type == 'prayer - name - getname':
             return requestPrayerByName(req_body)
-        if intent_type == 'prayer - all':
+        elif intent_type == 'prayer - all':
             return requestAllPrayer(req_body)
+        elif intent_type == 'prayer - benefit - getbenefit':
+            return requestTagPrayer(req_body)
 
         return req_body
 
