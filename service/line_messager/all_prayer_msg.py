@@ -1,5 +1,6 @@
 import math
 import json
+import copy
 
 carousel = {
     "type": "carousel",
@@ -73,34 +74,35 @@ prayer_box = {
 }
 
 
-def gen_message(prayer_list):
-    res = carousel
+def gen_message(prayer_list, topic_name='บทสวด'):
+    res = copy.deepcopy(carousel)
+    bubble["body"]["contents"][0]["text"] = topic_name
     if len(prayer_list) == 0:
-        res['contents'].append(bubble)
+        res['contents'].append(copy.deepcopy(bubble))
         return res
     else:
         # 5 prayers per carousel
         num_carousel = math.ceil(len(prayer_list) / 5)
         for i in range(1, num_carousel):
-            this_bubble = bubble.copy()
+            this_bubble = copy.deepcopy(bubble)
             for j in range((i-1)*5, i*5):
-                this_prayer_box = prayer_box.copy()
+                this_prayer_box = copy.deepcopy(prayer_box)
                 this_prayer_box["contents"][0]["contents"][0]["text"] = prayer_list[j]["name"]
                 this_prayer_box["contents"][1]["action"]["text"] = "ขอบท" + \
                     prayer_list[j]["name"]
                 this_bubble["body"]["contents"][1]["contents"].append(
-                    prayer_box)
+                    this_prayer_box)
             res['contents'].append(this_bubble)
         # last carousel = the rest
-        this_bubble = bubble.copy()
+        this_bubble = copy.deepcopy(bubble)
         for j in range((num_carousel-1)*5, len(prayer_list)):
-            this_prayer_box = prayer_box.copy()
+            this_prayer_box = copy.deepcopy(prayer_box)
             this_prayer_box["contents"][0]["contents"][0]["text"] = prayer_list[j]["name"]
             this_prayer_box["contents"][1]["action"]["text"] = "ขอบท" + \
                 prayer_list[j]["name"]
-            this_bubble["body"]["contents"][1]["contents"].append(prayer_box)
+            this_bubble["body"]["contents"][1]["contents"].append(
+                this_prayer_box)
         res['contents'].append(this_bubble)
-
         # with open('test.json', 'w') as fp:
         #     json.dump(res, fp)
         return res

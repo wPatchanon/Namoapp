@@ -17,21 +17,24 @@ def requestPrayerByName(req):
     print("Finding...")
     url_res = gc.get_prayer_image_url(prayerName)
     print("FINISH!!!")
-    IMG_URL = "https://www.publicdomainpictures.net/pictures/280000/nahled/not-found-image-15383864787lu.jpg"  # Default img
-    if url_res != None:
+    # Default img
+    IMG_URL = [
+        "https://storage.googleapis.com/namo-chatbot/not-found-image-15383864787lu.jpg"]
+    if len(url_res):
         IMG_URL = url_res
-
-    res = {
-        "fulfillmentMessages": [text_response, {
+    payload = []
+    for url in IMG_URL:
+        payload.append({
             "payload": {
                 "line": {
                     "type": "image",
-                    "originalContentUrl": IMG_URL,
-                    "previewImageUrl": IMG_URL
+                    "originalContentUrl": url,
+                    "previewImageUrl": url
                 }
             }
-        }
-        ]
+        })
+    res = {
+        "fulfillmentMessages": [text_response]+payload
     }
 
     return res
@@ -97,6 +100,23 @@ def requestHealthNews(req):
         "fulfillmentMessages": [text_response, {
             "payload": {
                 "line": body
+    return res
+
+def requestTagPrayer(req):
+    prayerTag = req["queryResult"]["parameters"]["prayer_benefit"]
+    print('Fetching')
+    prayers = gc.get_prayers_by_tag(prayerTag)
+    print("Finish")
+    body = all_prayer_msg.gen_message(prayers, prayerTag)
+    res = {
+        "fulfillmentMessages": [{
+            "payload": {
+                "line":
+                {
+                    "type": "flex",
+                    "altText": "this is a flex message",
+                    "contents": body,
+                }
             }
         }
         ]
