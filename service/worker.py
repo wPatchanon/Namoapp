@@ -60,6 +60,7 @@ def requestAllPrayer(req):
     }
     return res
 
+
 def requestMindNews(req):
     print('Fetching')
     news_list = nf.get_mind_news()
@@ -83,6 +84,7 @@ def requestMindNews(req):
     }
     return res
 
+
 def requestHealthNews(req):
     print('Fetching')
     news_list = nf.get_health_news()
@@ -100,7 +102,12 @@ def requestHealthNews(req):
         "fulfillmentMessages": [text_response, {
             "payload": {
                 "line": body
+            }
+        }
+        ]
+    }
     return res
+
 
 def requestTagPrayer(req):
     prayerTag = req["queryResult"]["parameters"]["prayer_benefit"]
@@ -121,7 +128,8 @@ def requestTagPrayer(req):
         }
         ]
     }
-    return res   
+    return res
+
 
 def requestDhammaNews(req):
     print('Fetching')
@@ -144,7 +152,7 @@ def requestDhammaNews(req):
         }
         ]
     }
-    return res   
+    return res
 
 
 # print(requestAllPrayer(""))

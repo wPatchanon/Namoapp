@@ -1,9 +1,9 @@
 import json
 
 
-def get_json(paresed_data):
-    with open('test.json', 'w') as fp:
-        json.dump(paresed_data, fp)
+# def get_json(paresed_data):
+#     with open('test.json', 'w') as fp:
+#         json.dump(paresed_data, fp)
 
 def gen_news_message(news_list, altText):
     res = {
@@ -16,7 +16,7 @@ def gen_news_message(news_list, altText):
             ]
         }
     }
-    
+
     for new in news_list:
         body = {
             "thumbnailImageUrl": new['image'],
@@ -30,6 +30,6 @@ def gen_news_message(news_list, altText):
             ]
         }
         res["template"]["columns"].append(body)
-    
-    get_json(res)
+
+    # get_json(res)
     return res
