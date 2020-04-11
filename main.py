@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from service.worker import requestPrayerByName, requestAllPrayer, requestMindNews
+from service.worker import requestPrayerByName, requestAllPrayer, requestMindNews, requestHealthNews, requestDhammaNews
 
 app = Flask(__name__)
 api = Api(app)
@@ -9,7 +9,6 @@ api = Api(app)
 class HelloWorld(Resource):
     def get(self):
         return {'hello': 'world'}
-
 
 class Query(Resource):
     def post(self, ):
@@ -22,6 +21,10 @@ class Query(Resource):
             return requestAllPrayer(req_body)
         if intent_type == 'news - mind':
             return requestMindNews(req_body)
+        if intent_type == 'news - all':
+            return requestHealthNews(req_body)
+        if intent_type == 'news - dhamma':
+            return requestDhammaNews(req_body)
 
         return req_body
 

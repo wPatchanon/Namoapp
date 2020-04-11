@@ -5,11 +5,10 @@ def get_json(paresed_data):
     with open('test.json', 'w') as fp:
         json.dump(paresed_data, fp)
 
-
-def gen_mind_message(news_list):
+def gen_news_message(news_list, altText):
     res = {
         "type": "template",
-        "altText": "this is a carousel template",
+        "altText": altText,
         "template": {
             "type": "carousel",
             "actions": [],
