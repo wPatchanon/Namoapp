@@ -5,11 +5,26 @@
     - worker.py
   - app.yaml (for App Engine)
   - .gcloudignore (for App Engine)
+  - .dockerignore (for Cloud Run)
   - Dockerfile (for Docker)
   - requirements.txt
   - *etc* (Not in this repo)
+    - *_ _init_ _.py*
     - *dbauthen.json*
+    - *line_authen.py*
     
+## Run in Cloud Run
+1. Upload image, run follow script in the same directory with Dockerfile
+```
+gcloud builds submit --tag gcr.io/namo-cloudproject/namocloudrun 
+```
+2. Start cloud run
+```
+gcloud run deploy namocloudrun --image gcr.io/namo-cloudproject/namocloudrun --platform managed --allow-unauthenticated
+```
+
+Region **1. asia-east**
+
 ## Run in Gcloud App Engine
 1. Download google cloud sdk
 2. Run 
