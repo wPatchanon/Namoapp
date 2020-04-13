@@ -1,5 +1,6 @@
 import service.GC_Client as gc
 import service.news_fetcher as nf
+import service.line_api as line
 import random
 from service.line_messager import all_prayer_msg, news_msg
 
@@ -153,6 +154,11 @@ def requestDhammaNews(req):
         ]
     }
     return res
+
+
+def broadcast():
+    print("Broadcasting...")
+    line.broadcast()
 
 
 # print(requestAllPrayer(""))

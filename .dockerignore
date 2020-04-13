@@ -1,0 +1,11 @@
+Dockerfile
+etc2/
+app.yaml
+.git
+.gitignore
+
+README.md
+*.pyc
+*.pyo
+*.pyd
+__pycache__

@@ -1,7 +1,8 @@
+import os
 from flask import Flask, request
 from flask_restful import Resource, Api
 
-from service.worker import requestPrayerByName, requestAllPrayer, requestTagPrayer, requestMindNews, requestHealthNews, requestDhammaNews
+from service.worker import requestPrayerByName, requestAllPrayer, requestTagPrayer, requestMindNews, requestHealthNews, requestDhammaNews, broadcast
 
 
 app = Flask(__name__)
@@ -11,6 +12,7 @@ api = Api(app)
 class HelloWorld(Resource):
     def get(self):
         return {'hello': 'world'}
+
 
 class Query(Resource):
     def post(self, ):
@@ -33,11 +35,19 @@ class Query(Resource):
         return req_body
 
 
+class Notify(Resource):
+    def get(self):
+        broadcast()
+        return {"suscess": 'true'}
+
+
 api.add_resource(HelloWorld, '/')
 api.add_resource(Query, '/query')
+api.add_resource(Notify, '/notify')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')  # !!! Debug mode
+    app.run(debug=True, host='0.0.0.0', port=int(
+        os.environ.get('PORT', 5000)))  # !!! Debug mode
     # app.run(debug=False, host='0.0.0.0')
 
 
