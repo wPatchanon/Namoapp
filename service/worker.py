@@ -1,7 +1,9 @@
 import service.GC_Client as gc
 import service.news_fetcher as nf
 import service.line_api as line
+import service.calendar_api as cld
 import random
+import datetime
 from service.line_messager import all_prayer_msg, news_msg
 
 
@@ -158,7 +160,39 @@ def requestDhammaNews(req):
 
 def broadcast():
     print("Broadcasting...")
-    line.broadcast()
+    holiday_id = 'th.th#holiday@group.v.calendar.google.com'
+    buddhist_id = 'n7kthnfuc8uldm955sfkpjt244@group.calendar.google.com'
+    days = ['จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์', 'อาทิตย์']
+
+    now = datetime.datetime.utcnow() + datetime.timedelta(hours=7)  # Thai time
+    weekday = now.weekday()
+    stop = now.replace(hour=0, minute=0, second=0,
+                       microsecond=0) + datetime.timedelta(days=1)  # Round day up
+    now = now.isoformat() + '+07:00'
+    stop = stop.isoformat() + '+07:00'
+
+    res1 = cld.event_fetcher(buddhist_id, now, stop)
+    res2 = cld.event_fetcher(holiday_id, now, stop)
+
+    text_variation = ['สวัสดีตอนเช้าวัน', 'อรุณสวัสดิ์เช้าวัน',
+                      'กู๊ดมอร์นิ่ง วันนี้วัน', 'ทักทายตอนเช้าวัน']
+    messages = [{
+        "type": "text",
+        "text": text_variation[random.randint(0, len(text_variation)-1)] + days[weekday] + ' \uDBC0\uDC59\uDBC0\uDC59'
+    }]
+
+    if len(res1) or len(res2):
+        text = 'วันนี้เป็น ' + \
+            ', '.join(res1+res2) + ' \uDBC0\uDC05\uDBC0\uDC05'
+        messages.append({
+            "type": "text",
+            "text": text,
+        })
+
+    payload = {
+        "messages": messages
+    }
+    line.broadcast(payload)
 
 
 # print(requestAllPrayer(""))
