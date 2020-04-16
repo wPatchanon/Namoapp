@@ -2,7 +2,7 @@ import os
 from flask import Flask, request
 from flask_restful import Resource, Api
 
-from service.worker import requestPrayerByName, requestAllPrayer, requestTagPrayer, requestMindNews, requestHealthNews, requestDhammaNews, broadcast
+from service.worker import requestPrayerByName, requestAllPrayer, requestTagPrayer, requestMindNews, requestHealthNews, requestDhammaNews, broadcast, notify
 
 
 app = Flask(__name__)
@@ -37,7 +37,12 @@ class Query(Resource):
 
 class Notify(Resource):
     def get(self):
-        broadcast()
+        notify()
+        return {"suscess": 'true'}
+
+    def post(self,):
+        req_body = request.get_json(force=True)
+        broadcast(req_body['payload'])
         return {"suscess": 'true'}
 
 

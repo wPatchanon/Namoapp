@@ -158,7 +158,7 @@ def requestDhammaNews(req):
     return res
 
 
-def broadcast():
+def notify():
     print("Broadcasting...")
     holiday_id = 'th.th#holiday@group.v.calendar.google.com'
     buddhist_id = 'n7kthnfuc8uldm955sfkpjt244@group.calendar.google.com'
@@ -194,5 +194,8 @@ def broadcast():
     }
     line.broadcast(payload)
 
+
+def broadcast(payload):
+    line.broadcast(payload)
 
 # print(requestAllPrayer(""))
