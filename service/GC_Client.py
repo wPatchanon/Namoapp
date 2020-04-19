@@ -76,6 +76,11 @@ def get_teaching_image_url(id):
             image_urls.append(blob.public_url)
     return image_urls
 
+def get_all_teaching():
+    query = datastore_client.query(kind='Teaching')
+    results = list(query.fetch())
+    return results
+
 
 # print(get_prayers_by_tag("สุข"))
 # print(get_prayer_image_url("ทดสอบ"))
@@ -83,3 +88,4 @@ def get_teaching_image_url(id):
 # print(get_all_prayer()[0]['name'])
 
 print(get_teaching_image_url(5643280054222848))
+print(get_all_teaching())
