@@ -55,7 +55,31 @@ def get_prayers_by_tag(tag):
     #     prayers.append({"name": res["name"], "image_url": blob.public_url})
     return results
 
+def get_teaching_image_url(id):
+    key = datastore_client.key('Teaching', id)
+    result = datastore_client.get(key)
+    print(result["image_object"])
+
+    if result is None:
+        return []
+
+    image_urls = []
+    if type(result["image_object"]) == list:
+        for image_object in result["image_object"]:
+            blob = bucket.get_blob("teachings/"+image_object)
+            if blob is None:
+                continue
+            image_urls.append(blob.public_url)
+    elif type(result["image_object"]) == str:
+        blob = bucket.get_blob("teachings/"+result["image_object"])
+        if blob is not None:
+            image_urls.append(blob.public_url)
+    return image_urls
+
+
 # print(get_prayers_by_tag("สุข"))
 # print(get_prayer_image_url("ทดสอบ"))
 # print(get_prayer_image_url("อิติปิโส"))
 # print(get_all_prayer()[0]['name'])
+
+print(get_teaching_image_url(5643280054222848))
