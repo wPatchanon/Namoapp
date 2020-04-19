@@ -81,11 +81,19 @@ def get_all_teaching():
     results = list(query.fetch())
     return results
 
+def get_teaching_by_tag(tag):
+    query = datastore_client.query(kind='Teaching')
+    query.add_filter('tags', '=', tag)
+    results = list(query.fetch())
+    return results
 
 # print(get_prayers_by_tag("สุข"))
 # print(get_prayer_image_url("ทดสอบ"))
 # print(get_prayer_image_url("อิติปิโส"))
 # print(get_all_prayer()[0]['name'])
 
-print(get_teaching_image_url(5643280054222848))
-print(get_all_teaching())
+# print(get_teaching_image_url(5643280054222848))
+# print(get_all_teaching())
+# print(get_teaching_image_url(get_all_teaching()[0].id))
+# print(get_teaching_by_tag("ปัญญา"))
+# print(get_teaching_by_tag("กรรม"))
