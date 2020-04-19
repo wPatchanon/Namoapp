@@ -27,12 +27,12 @@ def get_prayer_image_url(prayer_name):
     image_urls = []
     if type(results[0]["image_object"]) == list:
         for image_object in results[0]["image_object"]:
-            blob = bucket.get_blob(image_object)
+            blob = bucket.get_blob("prayers/"+image_object)
             if blob is None:
                 continue
             image_urls.append(blob.public_url)
     elif type(results[0]["image_object"]) == str:
-        blob = bucket.get_blob(results[0]["image_object"])
+        blob = bucket.get_blob("prayers/"+results[0]["image_object"])
         if blob is not None:
             image_urls.append(blob.public_url)
     return image_urls
@@ -51,11 +51,11 @@ def get_prayers_by_tag(tag):
 
     # prayers = []
     # for res in results:
-    #     blob = bucket.get_blob(res["image_object"])
+    #     blob = bucket.get_blob("prayers/"+res["image_object"])
     #     prayers.append({"name": res["name"], "image_url": blob.public_url})
     return results
 
 # print(get_prayers_by_tag("สุข"))
-# print(get_prayer_image_url("test"))
+# print(get_prayer_image_url("ทดสอบ"))
 # print(get_prayer_image_url("อิติปิโส"))
 # print(get_all_prayer()[0]['name'])
