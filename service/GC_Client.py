@@ -55,6 +55,7 @@ def get_prayers_by_tag(tag):
     #     prayers.append({"name": res["name"], "image_url": blob.public_url})
     return results
 
+
 def get_teaching_image_url(id):
     key = datastore_client.key('Teaching', id)
     result = datastore_client.get(key)
@@ -76,10 +77,12 @@ def get_teaching_image_url(id):
             image_urls.append(blob.public_url)
     return image_urls
 
+
 def get_all_teaching():
     query = datastore_client.query(kind='Teaching')
     results = list(query.fetch())
     return results
+
 
 def get_teaching_by_tag(tag):
     query = datastore_client.query(kind='Teaching')

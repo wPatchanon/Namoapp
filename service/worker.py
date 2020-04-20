@@ -158,6 +158,67 @@ def requestDhammaNews(req):
     return res
 
 
+def randomPrayer(req):
+    print('Fetching')
+    prayer_list = gc.get_all_prayer()
+    idx = random.randint(0, len(prayer_list)-1)
+    prayerName = prayer_list[idx]["name"]
+    IMG_URL = gc.get_prayer_image_url(prayerName)
+    print("Finish")
+    text_variation = [
+        ['บทสวดมนต์ "' + prayerName + '" อยู่ด้านล่างแล้วครับ'],
+        ['บทสวดมนต์ "' + prayerName + '" ได้แล้วจ้า'],
+    ]
+    text_response = {'text': {
+        'text': text_variation[random.randint(0, len(text_variation)-1)]
+    }}
+    payload = []
+    for url in IMG_URL:
+        payload.append({
+            "payload": {
+                "line": {
+                    "type": "image",
+                    "originalContentUrl": url,
+                    "previewImageUrl": url
+                }
+            }
+        })
+    res = {
+        "fulfillmentMessages": [text_response] + payload
+    }
+
+    return res
+
+
+def randomTeaching(req):
+    print('Fetching')
+    teaching_list = gc.get_all_teaching()
+    idx = random.randint(0, len(teaching_list))
+    if idx == 0:
+        return None  # Use dialog in DialogFlow
+    else:
+        idx -= 1
+        teachingId = teaching_list[idx].id
+        IMG_URL = gc.get_teaching_image_url(teachingId)
+        print('Finish')
+        payload = []
+        for url in IMG_URL:
+            payload.append({
+                "payload": {
+                    "line": {
+                        "type": "image",
+                        "originalContentUrl": url,
+                        "previewImageUrl": url
+                    }
+                }
+            })
+        res = {
+            "fulfillmentMessages": payload
+        }
+
+        return res
+
+
 def notify():
     print("Broadcasting...")
     holiday_id = 'th.th#holiday@group.v.calendar.google.com'

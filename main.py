@@ -2,7 +2,7 @@ import os
 from flask import Flask, request
 from flask_restful import Resource, Api
 
-from service.worker import requestPrayerByName, requestAllPrayer, requestTagPrayer, requestMindNews, requestHealthNews, requestDhammaNews, broadcast, notify
+from service.worker import requestPrayerByName, requestAllPrayer, requestTagPrayer, requestMindNews, requestHealthNews, requestDhammaNews, broadcast, notify, randomTeaching, randomPrayer
 
 
 app = Flask(__name__)
@@ -25,12 +25,16 @@ class Query(Resource):
             return requestAllPrayer(req_body)
         elif intent_type == 'prayer - benefit - getbenefit':
             return requestTagPrayer(req_body)
+        elif intent_type == 'prayer - random':
+            return randomPrayer(req_body)
         elif intent_type == 'news - mind':
             return requestMindNews(req_body)
         elif intent_type == 'news - all':
             return requestHealthNews(req_body)
         elif intent_type == 'news - dhamma':
             return requestDhammaNews(req_body)
+        elif intent_type == 'teaching':
+            return randomTeaching(req_body)
 
         return req_body
 
