@@ -11,7 +11,7 @@ NUM_NEWS = 5
 
 
 def remove_special_chars(sentence):
-    res = re.sub('\ |\?|\.|\!|\/|\;|\:|\&|\#|\-|\“|\”', '', sentence)
+    res = re.sub('\ |\?|\.|\!|\/|\;|\:|\&|\#|\-|\“|\”|\(|\)', '', sentence)
     res = re.sub('8220|8221', '', res)
     return res
 
